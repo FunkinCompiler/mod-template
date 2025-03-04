@@ -73,6 +73,10 @@
     {
       "fileMatch": ["**/data/characters/*.json"],
       "url": "/.vscode/fnf_schemas/chars.json"
+    },
+    {
+      "fileMatch": ["**/data/players/*.json"],
+      "url": "/.vscode/fnf_schemas/players.json"
     }
   ],
   // Generic file formatting style configuration

@@ -19,7 +19,7 @@ class ExampleEvent extends SongEvent
         type: "string", // type of a field.
         defaultValue: "", // A default value for it
       },
-      {
+      { //? Don't worry about errors. Funkin Compiler isn't perfect and *may* see errors in the valid code
         name: "IsFunky", // The name of the property (for use in event data)
         title: "Do you get freaky?", // The title to display in the charter
         type: "bool", // type of a field.

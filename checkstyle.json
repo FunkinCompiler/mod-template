@@ -57,14 +57,6 @@
       "type": "CatchParameterName"
     },
     {
-      "props": {
-        "thresholdSimilar": 120,
-        "severityIdentical": "INFO",
-        "thresholdIdentical": 60
-      },
-      "type": "CodeSimilarity"
-    },
-    {
       "props": {},
       "type": "CommentedOutCode"
     },

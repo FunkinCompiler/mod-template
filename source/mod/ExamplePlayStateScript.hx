@@ -39,17 +39,17 @@ class ExamplePlayStateScript extends Module
   override function onBeatHit(event:SongTimeScriptEvent)
   {
     // this will run on every in-game beat
-    
+
     // ? Apparently this also runs in other states
     //* If you would like to limit this to just playState, use this:
     // if (PlayState.instance == null || !PlayState.instance.active) return;
     if (Conductor.instance.currentBeat % 4 == 0)
     {
-      FunkinSound.playOnce(Paths.sound("chartingSounds/metronome1"), 0.4);
+      FunkinSound.playOnce(Paths.sound("chartingSounds/metronome1"), 0.1);
     }
     else
     {
-      FunkinSound.playOnce(Paths.sound("chartingSounds/metronome2"), 0.4);
+      FunkinSound.playOnce(Paths.sound("chartingSounds/metronome2"), 0.1);
     }
     trace(ReflectUtil.getAnonymousFieldsOf(AssetManifest.parse('{"assets":"cy7:Polymodyg","version":3}').assets));
 
@@ -70,11 +70,11 @@ class ExamplePlayStateScript extends Module
     if (event.note.noteData.getMustHitNote())
     {
       //* it's player note
-      FunkinSound.playOnce(Paths.sound("chartingSounds/hitNotePlayer"));
+      FunkinSound.playOnce(Paths.sound("chartingSounds/hitNotePlayer"), 0.2);
     }
     else
     {
-      FunkinSound.playOnce(Paths.sound("chartingSounds/hitNoteOpponent"));
+      FunkinSound.playOnce(Paths.sound("chartingSounds/hitNoteOpponent"), 0.2);
     }
     super.onNoteHit(event);
   }
