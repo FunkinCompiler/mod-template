@@ -1,0 +1,274 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Note Style Schema",
+  "description": "Schema for note style data files.",
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "The version number for the Note Style data file format.",
+      "default": "1.1.0",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "name": {
+      "type": "string",
+      "description": "The readable name for the note style, used in places like the Chart Editor.",
+      "minLength": 1
+    },
+    "author": {
+      "type": "string",
+      "description": "The author of the note style. Can be the artist who created the assets or who/whatever else you want to put here.",
+      "minLength": 1
+    },
+    "fallback": {
+      "type": "string",
+      "description": "The note style ID to use as a fallback note style. Any assets not included for this note style will use the parent's asset instead. `\"funkin\"` is the recommended default in order to use the default base game assets for anything that is not specified.",
+      "default": "funkin"
+    },
+    "assets": {
+      "type": "object",
+      "description": "A list of asset data for each of the assets for the note style.",
+      "properties": {
+        "note": {
+          "$ref": "#/definitions/NoteStyleAssetData",
+          "description": "List of animation data for the `left`, `down`, `up` and `right` arrows.",
+          "properties": {
+            "data": {
+              "$ref": "#/definitions/NoteStyleData_Note"
+            }
+          }
+        },
+
+        "noteStrumline": {
+          "type": "object",
+          "description": "List of animation data for each direction and it's variations, such as `<direction>Static`, `<direction>Press`, `<direction>Confirm`, `<direction>ConfirmHold` replacing `<direction>` with it's each and every corresponding direction.",
+          "items": {
+            "$ref": "#/definitions/animationData"
+          }
+        },
+
+        "countdownThree": {
+          "type": "object",
+          "description": "A graphic data for this notestyle's `Three` countdown",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/graphicData"
+            }
+          }
+        },
+
+        "countdownTwo": {
+          "type": "object",
+          "description": "A graphic data for this notestyle's `Two` countdown",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/graphicData"
+            }
+          }
+        },
+        "countdownOne": {
+          "type": "object",
+          "description": "A graphic data for this notestyle's `One` countdown",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/graphicData"
+            }
+          }
+        },
+        "countdownGo": {
+          "type": "object",
+          "description": "A graphic data for this notestyle's `Go!` graphic",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "The data",
+              "additionalProperties": {
+                "type": "object",
+                "items": {
+                  "$ref": ""
+                }
+              }
+            }
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/graphicData"
+            }
+          }
+        },
+        "holdNote": {
+          "type": "object",
+          "description": "Currently has no list of animation data that can be set."
+        },
+        "noteSplash": {
+          "type": "object",
+          "description": "There is currently no list of animation data available that can be set. It is likely to be added in the future.",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Specify whether to display the asset. Optional, defaults to `true`.",
+              "default": true
+            }
+          }
+        },
+        "holdNoteCover": {
+          "type": "object",
+          "description": "There is currently no list of animation data available that can be set. It is likely to be added in the future.",
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "description": "Specify whether to display the asset. Optional, defaults to `true`.",
+              "default": true
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": ["version", "name", "author", "fallback", "assets"],
+
+  "definitions": {
+    "NoteStyleData_Judgement": {},
+
+    "NoteStyleData_Note": {
+      "type": "object",
+      "properties": {
+        "up": {
+          "description": "Up arrow",
+          "$ref": "#/definitions/UnnamedAnimationData"
+        },
+        "down": {
+          "$ref": "#/definitions/UnnamedAnimationData"
+        },
+        "left": {
+          "$ref": "#/definitions/UnnamedAnimationData"
+        },
+        "right": {
+          "$ref": "#/definitions/UnnamedAnimationData"
+        }
+      }
+    },
+    "NoteStyleData_NoteSplash": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether is this splash enabled or not."
+        }
+      }
+    },
+    "NoteStyleData_HoldNoteCover": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether is this hold cover enabled or not."
+        }
+      }
+    },
+    "NoteStyleData_ComboNum": {},
+    "NoteStyleData_Countdown": {
+      "type": "object",
+      "properties": {
+        "audioPath": {
+          "type": "string",
+          "description": "A sound tied to this graphic. I think only countdowns should have those."
+        }
+      }
+    },
+
+    "UnnamedAnimationData": {
+      "type": "object",
+      "properties": {
+        "prefix": {
+          "type": "string",
+          "description": "The animation name as specified by your spritesheet. For Sparrow or Packer, check inside the data file to see what each set of frames is named, and use that as the prefix, excluding the frame numbers at the end. For Animate Atlases, use either the frame label or the symbol name of the animation you want to play.",
+          "minLength": 1
+        },
+        "assetPath": {
+          "type": "string",
+          "description": "The image to use for the asset. May be a Sparrow sprite sheet.",
+          "minLength": 1
+        },
+        "offsets": {
+          "type": "array",
+          "description": "Some animations may need their positions to be corrected relative to the idle animation. Use an array of two decimal values, the first for horizontal position and the second for vertical position.",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "isPixel": {
+          "type": "boolean",
+          "default": false,
+          "description": "A flag responsible for disabling anti-aliasing and some scaling magic"
+        }
+      },
+      "required": ["prefix"]
+    },
+    "NoteStyleAssetData": {
+      "type": "object",
+      "properties": {
+        "assetPath": {
+          "type": "string",
+          "description": "The image to use for the asset. May be a Sparrow sprite sheet.",
+          "minLength": 1
+        },
+        "offsets": {
+          "type": "array",
+          "description": "Some animations may need their positions to be corrected relative to the idle animation. Use an array of two decimal values, the first for horizontal position and the second for vertical position.",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "isPixel": {
+          "type": "boolean",
+          "default": false,
+          "description": "A flag responsible for disabling anti-aliasing and some scaling magic"
+        },
+
+        "looped": {
+          "type": "boolean",
+          "description": "Whether to loop this animation in-game. If false, the animation will pause when it ends, until the game commands the asset to do something else."
+        },
+        "flipX": {
+          "type": "boolean",
+          "description": "Whether to flip the sprites of this animation horizontally in-game."
+        },
+        "flipY": {
+          "type": "boolean",
+          "description": "Whether to flip the sprites of this animation vertically in-game."
+        },
+        "frameRate": {
+          "type": "number",
+          "description": "A frame rate value, defaulting to `24`.",
+          "default": 24
+        },
+        "scale": {
+          "type": "number",
+          "description": "Scale of this asset.",
+          "default": 0.6
+        },
+
+        "frameIndices": {
+          "type": "array",
+          "description": "Optionally specify an array of frame numbers (starting at frame 0!) to use from a given prefix for this animation. For example, specifying `[0, 1, 2, 3]` will make this animation only use the first 4 frames of the given prefix.",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+
+      "additionalProperties": false
+    }
+  }
+}

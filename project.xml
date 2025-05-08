@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <project>
-	
+
 	<meta title="Hello World" package="org.openfl.lime.samples.helloworld" version="1.0.0" company="OpenFL" />
-	<app main="Main" path="main" file="HelloWorld" />
+	<app  main="Main" path="main" file="HelloWorld" />
 	<classpath name="source" />
 	<classpath name="source/mod" />
 
-	
+
 	<haxelib name="funkin"/>
 	<haxelib name="lime" />
 	<haxelib name="flixel-addons" /> <!-- Additional utilities for Flixel -->
@@ -18,7 +17,7 @@
 	<haxelib name="flxanimate" /> <!-- Texture atlas rendering -->
 	<haxelib name="funkin.vis"/>
 	<haxelib name="grig.audio" />
-	<haxelib name="hxCodec" />
+	<haxelib name="hxvlc" />
 
 	<haxelib name="FlxPartialSound" /> <!-- Loading partial sound data -->
 
